@@ -8,7 +8,7 @@
 	<artifactId>microvibe</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0</version>
-	<name>transnal</name>
+	<name>microvibe</name>
 	<url>http://www.microvibe.org</url>
 	<organization>
 		<name>microvibe</name>
@@ -18,6 +18,78 @@
 	<modules>
 		<module>microvibe-dependencies</module>
 	</modules>
+
+	<!-- =====[repositories]===== -->
+	<repositories>
+		<repository>
+			<id>aliyun</id>
+			<name>aliyun</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+				<checksumPolicy>false</checksumPolicy>
+				<updatePolicy>updates</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<checksumPolicy>false</checksumPolicy>
+				<updatePolicy>updates</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<!-- =====[pluginRepositories]===== -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>aliyun</id>
+			<name>aliyun</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+				<checksumPolicy>false</checksumPolicy>
+				<updatePolicy>updates</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<checksumPolicy>false</checksumPolicy>
+				<updatePolicy>updates</updatePolicy>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<!-- =====[developers]===== -->
+	<developers>
+		<developer>
+			<name>Quaint</name>
+			<email>kylinmania@163.com</email>
+			<url>http://www.microvibe.org</url>
+			<roles>
+				<role>software ngineer</role>
+			</roles>
+			<timezone>8</timezone>
+		</developer>
+	</developers>
+
+	<!-- =====[licenses]===== -->
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
+	<!-- =====[properties]===== -->
+	<properties>
+		<maven.test.skip>false</maven.test.skip>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdk.version>1.8</jdk.version>
+		<support.basedir>${basedir}/src/support</support.basedir>
+		<site.basedir>${basedir}</site.basedir>
+		<jetty.version>9.2.2.v20140723</jetty.version>
+		<tomcat.maven.version>2.2</tomcat.maven.version>
+		<jrebel.maven.version>1.1.6</jrebel.maven.version>
+		<springboot.version>1.5.6.RELEASE</springboot.version>
+	</properties>
 
 	<build>
 		<!-- =====[resources]===== -->
@@ -58,62 +130,413 @@
 				<filtering>true</filtering>
 			</testResource>
 		</testResources>
+		<!-- =====[pluginManagement]===== -->
+		<pluginManagement>
+			<plugins>
+				<!-- =====[jetty]===== -->
+				<plugin>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>${jetty.version}</version>
+					<configuration>
+						<reload>manual</reload>
+						<stopPort>9009</stopPort>
+						<httpConnector>
+							<port>9001</port>
+						</httpConnector>
+						<webAppConfig>
+							<contextPath>/</contextPath>
+						</webAppConfig>
+						<!-- spring profile  -->
+						<systemProperties>
+							<systemProperty>
+								<name>spring.profiles.active</name>
+								<value>dev</value>
+							</systemProperty>
+						</systemProperties>
+					</configuration>
+				</plugin>
+
+				<!-- =====[tomcat]===== -->
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>${tomcat.maven.version}</version>
+					<configuration>
+						<port>9001</port>
+						<path>/</path>
+						<uriEncoding>${project.build.sourceEncoding}</uriEncoding>
+						<!-- spring profile  -->
+						<systemProperties>
+							<systemProperty>
+								<name>spring.profiles.active</name>
+								<value>dev</value>
+							</systemProperty>
+						</systemProperties>
+					</configuration>
+				</plugin>
+
+				<!-- =====[clean]===== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>2.5</version>
+				</plugin>
+				<!-- =====[source]===== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.2</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- =====[compiler]===== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.0</version>
+					<configuration>
+						<source>${jdk.version}</source>
+						<target>${jdk.version}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+				<!-- =====[install]===== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.4</version>
+				</plugin>
+
+				<!-- =====[jar]===== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.4</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+
+				<!-- =====[war]===== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.3</version>
+					<configuration>
+						<warName>${project.artifactId}</warName>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+					</configuration>
+				</plugin>
+
+				<!-- =====[native2ascii]===== -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>native2ascii-maven-plugin</artifactId>
+					<version>1.0-beta-1</version>
+					<executions>
+						<execution>
+							<phase>compile</phase>
+							<goals>
+								<goal>native2ascii</goal>
+							</goals>
+							<configuration>
+								<encoding>${project.build.sourceEncoding}</encoding>
+								<includes>**/*.properties</includes>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- =====[enforcer]===== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>1.4.1</version>
+					<executions>
+						<execution>
+							<id>default-cli</id>
+							<goals>
+								<goal>enforce</goal>
+							</goals>
+							<configuration>
+								<rules>
+									<requireJavaVersion>
+										<version>${jdk.version}</version>
+									</requireJavaVersion>
+								</rules>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- =====[test]===== -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.13</version>
+					<configuration>
+						<argLine>-Xmx256M</argLine>
+						<includes>
+							<include>**/Test*.java</include>
+							<include>**/*Test.java</include>
+							<include>**/*TestCase.java</include>
+						</includes>
+						<!-- <skipTests>true</skipTests> -->
+					</configuration>
+				</plugin>
+
+				<!-- =====[jrebel]===== -->
+				<plugin>
+					<groupId>org.zeroturnaround</groupId>
+					<artifactId>jrebel-maven-plugin</artifactId>
+					<version>${jrebel.maven.version}</version>
+					<configuration>
+						<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
+						<alwaysGenerate>true</alwaysGenerate>
+						<showGenerated>false</showGenerated>
+					</configuration>
+					<executions>
+						<execution>
+							<id>generate-rebel-xml</id>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- =====[spring-boot]===== -->
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${springboot.version}</version>
+				</plugin>
+
+				<!-- =====[site]===== -->
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.3</version>
+					<configuration>
+						<locales>zh_CN</locales>
+						<outputDirectory>${site.basedir}/target/site/${project.artifactId}</outputDirectory>
+						<outputEncoding>UTF-8</outputEncoding>
+						<inputEncoding>UTF-8</inputEncoding>
+						<reportPlugins>
+							<!-- 单元测试 -->
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-surefire-plugin</artifactId>
+								<configuration>
+									<argLine>-Xmx256M</argLine>
+									<includes>
+										<include>**/Test*.java</include>
+										<include>**/*Test.java</include>
+										<include>**/*TestCase.java</include>
+									</includes>
+								</configuration>
+							</plugin>
+							<!-- checkstyle 代码规范检查 -->
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-checkstyle-plugin</artifactId>
+							</plugin>
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-jxr-plugin</artifactId>
+								<configuration>
+									<aggregate>true</aggregate>
+								</configuration>
+							</plugin>
+							<!-- findbugs 静态分析工具 -->
+							<plugin>
+								<groupId>org.codehaus.mojo</groupId>
+								<artifactId>findbugs-maven-plugin</artifactId>
+								<configuration>
+									<xmlOutput>true</xmlOutput>
+								</configuration>
+							</plugin>
+							<!-- pmd Java程序代码检查工具 -->
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-pmd-plugin</artifactId>
+							</plugin>
+							<!-- cobertura 代码覆盖率工具 -->
+							<plugin>
+								<groupId>org.codehaus.mojo</groupId>
+								<artifactId>cobertura-maven-plugin</artifactId>
+								<configuration>
+									<check>
+										<branchRate>85</branchRate>
+										<lineRate>85</lineRate>
+										<haltOnFailure>true</haltOnFailure>
+										<totalBranchRate>85</totalBranchRate>
+										<totalLineRate>85</totalLineRate>
+										<packageLineRate>85</packageLineRate>
+										<packageBranchRate>85</packageBranchRate>
+										<regexes>
+											<regex>
+												<pattern>todo.*</pattern>
+												<branchRate>90</branchRate>
+												<lineRate>80</lineRate>
+											</regex>
+										</regexes>
+									</check>
+									<instrumentation>
+										<ignores>
+											<ignore>todo.*</ignore>
+										</ignores>
+										<excludes>
+											<exclude>todo/**/*.class</exclude>
+										</excludes>
+									</instrumentation>
+								</configuration>
+							</plugin>
+
+							<!-- taglist报表 生成标注上@todo或TODO的项目的列表 -->
+							<plugin>
+								<groupId>org.codehaus.mojo</groupId>
+								<artifactId>taglist-maven-plugin</artifactId>
+								<version>2.4</version>
+							</plugin>
+
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-javadoc-plugin</artifactId>
+								<version>2.7</version>
+							</plugin>
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-project-info-reports-plugin</artifactId>
+								<version>2.1</version>
+							</plugin>
+						</reportPlugins>
+						<port>9999</port>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<!-- =====[plugins]===== -->
 		<plugins>
 			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>native2ascii-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.zeroturnaround</groupId>
+				<artifactId>jrebel-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.0</version>
-				<configuration>
-					<locales>zh_CN</locales>
-					<outputEncoding>UTF-8</outputEncoding>
-					<inputEncoding>UTF-8</inputEncoding>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
-	<!-- =====[properties]===== -->
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-
-	<!-- =====[repositories]===== -->
-	<repositories>
-		<repository>
-			<id>aliyun</id>
-			<name>aliyun</name>
-			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
-		</repository>
-	</repositories>
-
-	<!-- =====[pluginRepositories]===== -->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>aliyun</id>
-			<name>aliyun</name>
-			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
-		</pluginRepository>
-	</pluginRepositories>
-
-	<!-- =====[developers]===== -->
-	<developers>
-		<developer>
-			<name>Quaint</name>
-			<email>kylinmania@163.com</email>
-			<url>http://www.microvibe.org</url>
-			<roles>
-				<role>software ngineer</role>
-			</roles>
-			<timezone>8</timezone>
-		</developer>
-	</developers>
-
-	<!-- =====[licenses]===== -->
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
-		</license>
-	</licenses>
+	<!-- =====[profiles]===== -->
+	<profiles>
+		<!-- [development] -->
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+				<spring.activeProfile>dev</spring.activeProfile>
+			</properties>
+		</profile>
+		<!-- [Unit Testing] -->
+		<profile>
+			<id>sut</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+				<spring.activeProfile>sut</spring.activeProfile>
+			</properties>
+		</profile>
+		<!-- [Integration Testing] -->
+		<profile>
+			<id>sit</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+				<spring.activeProfile>sit</spring.activeProfile>
+			</properties>
+		</profile>
+		<!-- [production] -->
+		<profile>
+			<id>pro</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+				<spring.activeProfile>pro</spring.activeProfile>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>
