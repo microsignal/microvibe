@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<modelVersion>4.0.0</modelVersion>
+		<parent>
+				<groupId>org.microvibe</groupId>
+				<artifactId>microvibe</artifactId>
+				<version>1.0</version>
+		</parent>
+		<groupId>org.microvibe.dependencies</groupId>
+		<artifactId>microvibe-dependencies</artifactId>
+		<version>1.0</version>
+		<packaging>pom</packaging>
+
+		<modules>
+				<module>microvibe-dependencies-commons</module>
+				<module>microvibe-dependencies-lucene</module>
+				<module>microvibe-dependencies-solr</module>
+				<module>microvibe-dependencies-solrj</module>
+				<module>microvibe-dependencies-tika</module>
+				<module>microvibe-dependencies-test</module>
+		</modules>
+		<dependencyManagement>
+				<dependencies>
+						<dependency>
+								<groupId>org.microvibe.dependencies</groupId>
+								<artifactId>microvibe-dependencies-commons</artifactId>
+								<version>${project.version}</version>
+						</dependency>
+						<dependency>
+								<groupId>org.microvibe.dependencies</groupId>
+								<artifactId>microvibe-dependencies-lucene</artifactId>
+								<version>${project.version}</version>
+						</dependency>
+						<dependency>
+								<groupId>org.microvibe.dependencies</groupId>
+								<artifactId>microvibe-dependencies-solr</artifactId>
+								<version>${project.version}</version>
+						</dependency>
+						<dependency>
+								<groupId>org.microvibe.dependencies</groupId>
+								<artifactId>microvibe-dependencies-solrj</artifactId>
+								<version>${project.version}</version>
+						</dependency>
+						<dependency>
+								<groupId>org.microvibe.dependencies</groupId>
+								<artifactId>microvibe-dependencies-tika</artifactId>
+								<version>${project.version}</version>
+						</dependency>
+						<dependency>
+								<groupId>org.microvibe.dependencies</groupId>
+								<artifactId>microvibe-dependencies-test</artifactId>
+								<version>${project.version}</version>
+								<scope>test</scope>
+						</dependency>
+				</dependencies>
+		</dependencyManagement>
+
+</project>

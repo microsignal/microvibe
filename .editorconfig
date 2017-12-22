@@ -1,0 +1,29 @@
+root = true
+
+[*]
+#indent_style = space
+#indent_size = 4
+indent_style = tab
+tab_width = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[{*.css,*.js}]
+tab_width = 2
+
+[{*.md,*.markdown,*.mkd}]
+tab_width = 2
+
+[*.java]
+tab_width = 4
+
+[{*.xml,*.tld}]
+tab_width = 2
+
+[{*.jsp,*.jspf,*.tag}]
+tab_width = 2
+
+[{*.sql}]
+tab_width = 2
