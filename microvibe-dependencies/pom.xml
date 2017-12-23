@@ -4,11 +4,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.microvibe</groupId>
+		<groupId>io.github.microvibe</groupId>
 		<artifactId>microvibe</artifactId>
 		<version>1.0</version>
 	</parent>
-	<groupId>org.microvibe.dependencies</groupId>
+	<groupId>io.github.microvibe.dependencies</groupId>
 	<artifactId>microvibe-dependencies</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
@@ -24,32 +24,32 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.microvibe.dependencies</groupId>
+				<groupId>io.github.microvibe.dependencies</groupId>
 				<artifactId>microvibe-dependencies-commons</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.microvibe.dependencies</groupId>
+				<groupId>io.github.microvibe.dependencies</groupId>
 				<artifactId>microvibe-dependencies-lucene</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.microvibe.dependencies</groupId>
+				<groupId>io.github.microvibe.dependencies</groupId>
 				<artifactId>microvibe-dependencies-solr</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.microvibe.dependencies</groupId>
+				<groupId>io.github.microvibe.dependencies</groupId>
 				<artifactId>microvibe-dependencies-solrj</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.microvibe.dependencies</groupId>
+				<groupId>io.github.microvibe.dependencies</groupId>
 				<artifactId>microvibe-dependencies-tika</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.microvibe.dependencies</groupId>
+				<groupId>io.github.microvibe.dependencies</groupId>
 				<artifactId>microvibe-dependencies-test</artifactId>
 				<version>${project.version}</version>
 				<scope>test</scope>

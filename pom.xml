@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.microvibe</groupId>
+	<groupId>io.github.microvibe</groupId>
 	<artifactId>microvibe</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0</version>
@@ -17,6 +17,8 @@
 
 	<modules>
 		<module>microvibe-dependencies</module>
+		<module>microvibe-util</module>
+		<module>microvibe-toolkit</module>
 	</modules>
 
 	<!-- =====[repositories]===== -->
@@ -60,7 +62,7 @@
 	<!-- =====[developers]===== -->
 	<developers>
 		<developer>
-			<name>Quaint</name>
+			<name>Qt</name>
 			<email>kylinmania@163.com</email>
 			<url>http://www.microvibe.org</url>
 			<roles>
@@ -303,19 +305,19 @@
 					<artifactId>jrebel-maven-plugin</artifactId>
 					<version>${jrebel.maven.version}</version>
 					<configuration>
-						<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
-						<alwaysGenerate>true</alwaysGenerate>
-						<showGenerated>false</showGenerated>
+						<addResourcesDirToRebelXml>false</addResourcesDirToRebelXml>
+						<alwaysGenerate>false</alwaysGenerate>
+						<showGenerated>true</showGenerated>
 					</configuration>
-					<executions>
+					<!-- <executions>
 						<execution>
 							<id>generate-rebel-xml</id>
-							<phase>process-resources</phase>
+							<phase>process-test-resources</phase>
 							<goals>
 								<goal>generate</goal>
 							</goals>
 						</execution>
-					</executions>
+					</executions> -->
 				</plugin>
 
 				<!-- =====[spring-boot]===== -->

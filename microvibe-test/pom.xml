@@ -4,17 +4,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.microvibe</groupId>
+		<groupId>io.github.microvibe</groupId>
 		<artifactId>microvibe</artifactId>
 		<version>1.0</version>
 	</parent>
-	<groupId>org.microvibe.test</groupId>
+	<groupId>io.github.microvibe.test</groupId>
 	<artifactId>microvibe-test</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
 	
 	<modules>
 		<module>microvibe-test-websocket</module>
+		<module>microvibe-test-tika</module>
 	</modules>
 
 	<properties>
@@ -78,7 +79,7 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.microvibe.dependencies</groupId>
+				<groupId>io.github.microvibe.dependencies</groupId>
 				<artifactId>microvibe-dependencies</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
@@ -88,7 +89,7 @@
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>org.microvibe.dependencies</groupId>
+			<groupId>io.github.microvibe.dependencies</groupId>
 			<artifactId>microvibe-dependencies-test</artifactId>
 			<scope>test</scope>
 		</dependency>

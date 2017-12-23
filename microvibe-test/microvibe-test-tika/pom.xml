@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>io.github.microvibe.test</groupId>
+		<artifactId>microvibe-test</artifactId>
+		<version>1.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>io.github.microvibe.test</groupId>
+	<artifactId>microvibe-test-tika</artifactId>
+	<version>1.0</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<maven.test.skip>false</maven.test.skip>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-tika</artifactId>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>sut</id>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+			</properties>
+		</profile>
+	</profiles>
+</project>

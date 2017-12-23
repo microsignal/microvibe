@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width">
+<meta charset="utf-8">
+<title>WebSocket 客户端</title>
+</head>
+<body>
+    <div>
+        <label>My Name:</label>
+        <input id="username" value="WebSocket">
+        <input type="button" id="btnConnection" value="连接">
+        <input type="button" id="btnClose" value="关闭">
+        <span id="status"></span>
+    </div>
+    <div>
+        To User:<input id="tousername" value="">
+        <input type="button" id="btnSend" value="发送">
+        <br>
+        <textarea id="msgcontent" style="margin-top: 10px; height:30px; width: 90%;"></textarea>
+    </div>
+    <textarea id="msgboard" style="margin-top: 10px; height:300px; width: 90%;"></textarea>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script type="text/javascript">
+        var socket;
+        function show(msg){
+            $("#msgboard").val($("#msgboard").val()+msg+"\n");
+            var scrollTop = $("#msgboard").get(0).scrollHeight;  
+            $("#msgboard").scrollTop(scrollTop); 
+        }
+        if (typeof (WebSocket) == "undefined") {
+            show("您的浏览器不支持WebSocket");
+        }
+
+        $("#btnConnection").click(function() {
+            //实现化WebSocket对象，指定要连接的服务器地址与端口
+            socket = new WebSocket("ws://127.0.0.1:8080/ws/chat?user="+$("#username").val());
+            //打开事件
+            socket.onopen = function() {
+                show("Socket 已打开");
+                $("#status").html('['+$("#username").val()+'] 已连接');
+            };
+            //获得消息事件
+            socket.onmessage = function(msg) {
+            	console.log(msg);
+            	var data = JSON.parse(msg.data);
+            	if(data.msgcontent!=null){
+            		var tousername = data.tousername||"All";
+            		show("["+data.currentUser+"("+data.hash+")]to["+tousername+"]"+(new Date(data.time))+":\n" + data.msgcontent);
+            	}
+            };
+            //关闭事件
+            socket.onclose = function() {
+                show("Socket 已关闭");
+                $("#status").html('['+$("#username").val()+'] 已关闭');
+            };
+            //发生了错误事件
+            socket.onerror = function() {
+                show("发生了错误");
+            }
+        });
+
+        //发送消息
+        $("#btnSend").click(function() {
+            socket.send(JSON.stringify({
+                time: new Date().getTime(),
+                tousername: $("#tousername").val().trim()||null,
+                msgcontent: $("#msgcontent").val()
+            }));
+        });
+
+        //关闭
+        $("#btnClose").click(function() {
+            socket.close();
+        });
+    </script>
+</body>
+
+</html>
