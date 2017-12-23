@@ -20,6 +20,9 @@
 	title="pure" disabled>
 <link rel="stylesheet"
 	href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.css" integrity="sha384-exe4Ak6B0EoJI0ogGxjJ8rn+RN3ftPnEQrGwX59KTCl5ybGzvHGKjhPKk/KC3abb" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.js" integrity="sha384-OMvkZ24ANLwviZR2lVq8ujbE/bUO8IR1FdBrKLQBI14Gq5Xp/lksIccGkmKL8m+h" crossorigin="anonymous"></script>
+	
 <style>
 a.demo-theme-preview:hover {
 	cursor: pointer;
@@ -46,8 +49,8 @@ a.demo-search-clear:hover{
 			autoHeader : true,
 			executeScript : true,
 			mergeNavbar : true,
-			maxLevel : 4,
-			subMaxLevel : 2,
+			maxLevel : 5,
+			subMaxLevel : 4,
 			//别名
 			alias : {
 			//	'\\/en\\/(.+)' : '/$1',
@@ -84,6 +87,37 @@ a.demo-search-clear:hover{
 						if (lang === "mermaid") {
 							return ('<div class="mermaid">'
 									+ mermaid.render(lang, code) + "</div>");
+						} else if(lang === 'math'){
+							var arr = code.split('\n');
+							var content = '';
+							var newline = true;
+							for(var i=0;i<arr.length;i++){
+								var text = arr[i].trimRight();
+								var nextnewline = true;
+								if(text.endsWith('\\')){
+									text = text.replace(/\\+$/,'');
+									nextnewline = false;
+								}else{
+									nextnewline = true;
+								}
+								try{
+									var html = katex.renderToString(text);
+									if(newline && nextnewline){
+										content += '<div class="katex">'+html+'</div>';
+									}else{
+										content += '<span class="katex">'+html+'</span>';
+									}
+								}catch(e){
+									if(newline && nextnewline){
+										content += '<div class="katex">'+text+'</div>';
+									}else{
+										content += '<span class="katex">'+text+'</span>';
+									}
+									console.warn(e);
+								}
+								newline = nextnewline;
+							}
+							return content;
 						}
 						return this.origin.code.apply(this, arguments);
 					}
@@ -97,8 +131,43 @@ a.demo-search-clear:hover{
 			}],
 			name : '',
 			repo : ''
+		};
+		(function(){
+			initMermaid();
+			bindThemeChangeEvent();
+			bindSearchClearEvent();
+		})();
+		function initMermaid(){
+			if(typeof(mermaid) == 'undefined'){
+				setTimeout(function(){
+					initMermaid();
+				},1000);
+				return false;
+			}
+			mermaid.initialize({
+				startOnLoad : false
+			});
 		}
-		setTimeout(function() {
+		function bindSearchClearEvent(){
+			if(typeof(Docsify) == 'undefined' || Docsify.dom.find('.demo-search-clear') == null){
+				setTimeout(function(){
+					bindSearchClearEvent();
+				},1000);
+				return false;
+			}
+			var searchClear = Docsify.dom.find('.demo-search-clear');
+			searchClear.onclick = function(e){
+				localStorage.removeItem('docsify.search.expires');
+				localStorage.removeItem('docsify.search.index');
+			}
+		}
+		function bindThemeChangeEvent(){
+			if(typeof(Docsify) == 'undefined' || Docsify.dom.findAll('.demo-theme-preview').length == 0){
+				setTimeout(function(){
+					bindThemeChangeEvent();
+				},1000);
+				return false;
+			}
 			var previews = Docsify.dom.findAll('.demo-theme-preview');
 			var themes = Docsify.dom.findAll('[rel="stylesheet"]');
 			previews.forEach(function(preview) {
@@ -109,24 +178,38 @@ a.demo-search-clear:hover{
 					});
 				};
 			});
-			try{
-				var searchClear = Docsify.dom.find('.demo-search-clear');
-				searchClear.onclick = function(e){
-					localStorage.removeItem('docsify.search.expires');
-					localStorage.removeItem('docsify.search.index');
-				}
-			}catch(e){}
-		},2000);
-		setTimeout(function(){
-			mermaid.initialize({
-				startOnLoad : false
-			});
-		},1000);
+		}
 	</script>
+	
 	<script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 	<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 	<script src="//unpkg.com/docsify/lib/plugins/emoji.js"></script>
 	<script src="//unpkg.com/docsify/lib/plugins/zoom-image.js"></script>
 	<script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-markdown.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-java.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-xml.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-javascript.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-python.min.js"></script>
+  <script src="//unpkg.com/prismjs/components/prism-c.min.js"></script>
+
+<!-- 
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+    	//$表示行内元素，$$表示块状元素
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js">
+</script>
+-->
 </body>
 </html>
