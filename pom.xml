@@ -101,6 +101,7 @@
 	</properties>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<!-- =====[resources]===== -->
 		<resources>
 			<resource>
@@ -110,12 +111,26 @@
 				</includes>
 				<excludes>
 					<exclude>**/*.java</exclude>
+					<exclude>README.md</exclude>
 				</excludes>
 			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*</include>
+				</includes>
+				<excludes>
+					<exclude>README.md</exclude>
+					<exclude>**/*.properties</exclude>
+					<exclude>**/*.xml</exclude>
+				</excludes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
 				</includes>
 				<filtering>true</filtering>
 			</resource>
@@ -129,6 +144,7 @@
 				</includes>
 				<excludes>
 					<exclude>**/*.java</exclude>
+					<exclude>README.md</exclude>
 				</excludes>
 			</testResource>
 			<testResource>
@@ -136,7 +152,20 @@
 				<includes>
 					<include>**/*</include>
 				</includes>
-				<filtering>true</filtering>
+				<excludes>
+					<exclude>README.md</exclude>
+					<exclude>**/*.properties</exclude>
+					<exclude>**/*.xml</exclude>
+				</excludes>
+				<filtering>false</filtering>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
 			</testResource>
 		</testResources>
 		<!-- =====[pluginManagement]===== -->
