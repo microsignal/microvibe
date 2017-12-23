@@ -13,7 +13,7 @@ if [ -n "$1" ];then
 	touch "${submodule}"/src/test/resources/README.md
 	
 	cp pom-submodule.xml ${submodule}/pom.xml
-	echo "Please edit ${submodule}/pom.xml"
+	echo "Please edit ${submodule}/pom.xml!"
 fi
 
 cd $currdir
