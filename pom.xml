@@ -9,10 +9,11 @@
 	<packaging>pom</packaging>
 	<version>1.0</version>
 	<name>microvibe</name>
-	<url>http://www.microvibe.org</url>
+	<url>https://microvibe.github.io</url>
+	<description>microvibe</description>
 	<organization>
 		<name>microvibe</name>
-		<url>http://www.microvibe.org</url>
+		<url>https://microvibe.github.io</url>
 	</organization>
 
 	<modules>
@@ -64,7 +65,7 @@
 		<developer>
 			<name>Qt</name>
 			<email>kylinmania@163.com</email>
-			<url>http://www.microvibe.org</url>
+			<url>https://microvibe.github.io</url>
 			<roles>
 				<role>software ngineer</role>
 			</roles>
@@ -79,6 +80,12 @@
 			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
 		</license>
 	</licenses>
+	<!-- =====[scm]===== -->
+	<scm>
+		<connection>scm:git:git@github.com:microvibe/microvibe.git</connection>
+		<developerConnection>scm:git:git@github.com:microvibe/microvibe.git</developerConnection>
+		<url>git@github.com:microvibe/microvibe.git</url>
+	</scm>
 
 	<!-- =====[properties]===== -->
 	<properties>
@@ -539,6 +546,62 @@
 				<spring.activeProfile>pro</spring.activeProfile>
 			</properties>
 		</profile>
+		<!-- oss -->
+		<profile>
+			<id>oss</id>
+			<build>
+				<plugins>
+					<!-- Source -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- Javadoc -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- GPG -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>oss</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+				</snapshotRepository>
+				<repository>
+					<id>oss</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</distributionManagement>
+		</profile>
 	</profiles>
-
 </project>
