@@ -246,6 +246,23 @@
 						<encoding>${project.build.sourceEncoding}</encoding>
 					</configuration>
 				</plugin>
+				<!-- =====[lombok-compiler]===== -->
+				<plugin>
+					<groupId>org.projectlombok</groupId>
+					<artifactId>lombok-maven-plugin</artifactId>
+					<version>1.16.18.1</version>
+					<configuration>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+					<executions>
+						<execution>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>delombok</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 				<!-- =====[install]===== -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -489,6 +506,10 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-install-plugin</artifactId>
 			</plugin>
@@ -528,6 +549,29 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- =====[dependencies]===== -->
+	<dependencies>
+		<!-- =====[lombok]===== -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+	</dependencies>
+
+	<!-- =====[dependencyManagement]===== -->
+	<dependencyManagement>
+		<dependencies>
+			<!-- =====[lombok]===== -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.16.18</version>
+				<scope>provided</scope>
+				<optional>true</optional>  
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<!-- =====[profiles]===== -->
 	<profiles>
