@@ -15,6 +15,7 @@
 
 	<modules>
 		<module>microvibe-dependencies-commons</module>
+		<module>microvibe-dependencies-redisson</module>
 		<module>microvibe-dependencies-lucene</module>
 		<module>microvibe-dependencies-solr</module>
 		<module>microvibe-dependencies-solrj</module>
