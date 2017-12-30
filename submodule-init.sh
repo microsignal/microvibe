@@ -7,10 +7,10 @@ if [ -n "$1" ];then
 	mkdir -p "${submodule}"/src/test/java
 	mkdir -p "${submodule}"/src/test/resources
 	
-	touch "${submodule}"/src/main/java/README.md
-	touch "${submodule}"/src/main/resources/README.md
-	touch "${submodule}"/src/test/java/README.md
-	touch "${submodule}"/src/test/resources/README.md
+	touch "${submodule}"/src/main/java/.keepdir
+	touch "${submodule}"/src/main/resources/.keepdir
+	touch "${submodule}"/src/test/java/.keepdir
+	touch "${submodule}"/src/test/resources/.keepdir
 	
 	cp pom-submodule.xml ${submodule}/pom.xml
 	echo "Please edit ${submodule}/pom.xml!"

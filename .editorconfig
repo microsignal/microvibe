@@ -37,3 +37,9 @@ tab_width = 2
 [{*.sql}]
 indent_style = tab
 tab_width = 2
+
+[{*.yml,*.yaml}]
+indent_style = space
+indent_size = 2
+
+

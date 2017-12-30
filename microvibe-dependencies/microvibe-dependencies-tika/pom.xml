@@ -5,10 +5,11 @@
 	<parent>
 		<groupId>io.github.microvibe.dependencies</groupId>
 		<artifactId>microvibe-dependencies</artifactId>
-		<version>1.0</version>
+		<version>1.0.1</version>
 	</parent>
 	<artifactId>microvibe-dependencies-tika</artifactId>
 	<packaging>jar</packaging>
+
 
 	<properties>
 		<tika.version>1.16</tika.version>

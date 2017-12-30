@@ -7,12 +7,12 @@
 	<groupId>io.github.microvibe</groupId>
 	<artifactId>microvibe</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0</version>
+	<version>1.0.1</version>
 	<name>microvibe</name>
 	<url>https://microvibe.github.io</url>
 	<description>microvibe</description>
 	<organization>
-		<name>microvibe</name>
+		<name>https://microvibe.github.io</name>
 		<url>https://microvibe.github.io</url>
 	</organization>
 
@@ -91,7 +91,7 @@
 	<properties>
 		<maven.test.skip>false</maven.test.skip>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jdk.version>1.8</jdk.version>
+		<java.version>1.8</java.version>
 		<support.basedir>${basedir}/src/support</support.basedir>
 		<site.basedir>${basedir}</site.basedir>
 		<jetty.version>9.2.2.v20140723</jetty.version>
@@ -232,6 +232,11 @@
 							<goals>
 								<goal>jar</goal>
 							</goals>
+							<configuration>
+								<excludes>
+									<exclude>rebel.xml</exclude>
+								</excludes>
+							</configuration>
 						</execution>
 					</executions>
 				</plugin>
@@ -241,8 +246,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.0</version>
 					<configuration>
-						<source>${jdk.version}</source>
-						<target>${jdk.version}</target>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
 						<encoding>${project.build.sourceEncoding}</encoding>
 					</configuration>
 				</plugin>
@@ -281,6 +286,9 @@
 								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							</manifest>
 						</archive>
+						<excludes>
+							<exclude>rebel.xml</exclude>
+						</excludes>
 					</configuration>
 				</plugin>
 
@@ -292,6 +300,9 @@
 					<configuration>
 						<warName>${project.artifactId}</warName>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
+						<excludes>
+							<exclude>rebel.xml</exclude>
+						</excludes>
 					</configuration>
 				</plugin>
 
@@ -328,7 +339,7 @@
 							<configuration>
 								<rules>
 									<requireJavaVersion>
-										<version>${jdk.version}</version>
+										<version>${java.version}</version>
 									</requireJavaVersion>
 								</rules>
 							</configuration>
@@ -358,19 +369,26 @@
 					<artifactId>jrebel-maven-plugin</artifactId>
 					<version>${jrebel.maven.version}</version>
 					<configuration>
-						<addResourcesDirToRebelXml>false</addResourcesDirToRebelXml>
-						<alwaysGenerate>false</alwaysGenerate>
-						<showGenerated>true</showGenerated>
+						<addResourcesDirToRebelXml>true</addResourcesDirToRebelXml>
+						<alwaysGenerate>true</alwaysGenerate>
+						<showGenerated>false</showGenerated>
 					</configuration>
-					<!-- <executions>
+					<executions>
 						<execution>
 							<id>generate-rebel-xml</id>
+							<phase>process-resources</phase>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>generate-test-rebel-xml</id>
 							<phase>process-test-resources</phase>
 							<goals>
 								<goal>generate</goal>
 							</goals>
 						</execution>
-					</executions> -->
+					</executions>
 				</plugin>
 
 				<!-- =====[spring-boot]===== -->
@@ -634,6 +652,11 @@
 								<goals>
 									<goal>jar-no-fork</goal>
 								</goals>
+								<configuration>
+									<excludes>
+										<exclude>rebel.xml</exclude>
+									</excludes>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>
