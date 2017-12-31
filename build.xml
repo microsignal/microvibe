@@ -95,6 +95,8 @@
 		<git-push remote="origin" localref="master" remoteref="master" dir="${basedir}/submodule" />
 		-->
 		<git-push remote="origin" localref="master" remoteref="master" dir="${basedir}" />
+		<git-push remote="gitee" localref="master" remoteref="master" dir="${basedir}" />
+		<git-push remote="github" localref="master" remoteref="master" dir="${basedir}" />
 		<!--
 		<git-push remote="coding" localref="master" remoteref="master" />
 		<git-push remote="csdn" localref="master" remoteref="master" />
