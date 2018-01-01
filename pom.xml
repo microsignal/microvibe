@@ -30,13 +30,13 @@
 			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
 			<releases>
 				<enabled>true</enabled>
-				<checksumPolicy>false</checksumPolicy>
-				<updatePolicy>updates</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+				<updatePolicy>always</updatePolicy>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
-				<checksumPolicy>false</checksumPolicy>
-				<updatePolicy>updates</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
 	</repositories>
@@ -49,13 +49,13 @@
 			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
 			<releases>
 				<enabled>true</enabled>
-				<checksumPolicy>false</checksumPolicy>
-				<updatePolicy>updates</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+				<updatePolicy>always</updatePolicy>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
-				<checksumPolicy>false</checksumPolicy>
-				<updatePolicy>updates</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
