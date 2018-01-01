@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd" scan="false">
+	<property name="logTextPattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%X{username}][%-5level] %logger{80}[%L] - %n%msg%n" />
+	<property name="logFilePath" value="${log.home:-/logs}" />
+	<property name="logFileName" value="${app.name:-microvibe}" />
+
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<Encoding>UTF-8</Encoding>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${logTextPattern}</pattern>
+		</layout>
+	</appender>
+	<appender name="appFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logFilePath}/${logFileName}.log</file>
+		<Encoding>UTF-8</Encoding>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logFilePath}/${logFileName}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${logTextPattern}</pattern>
+		</layout>
+	</appender>
+	<appender name="debugFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logFilePath}/${logFileName}_debug.log</file>
+		<Encoding>UTF-8</Encoding>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>NEUTRAL</onMatch>
+			<!-- <onMatch>ACCEPT</onMatch> -->
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logFilePath}/${logFileName}_debug.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${logTextPattern}</pattern>
+		</layout>
+	</appender>
+	<appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logFilePath}/${logFileName}_error.log</file>
+		<Encoding>UTF-8</Encoding>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logFilePath}/${logFileName}_error.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${logTextPattern}</pattern>
+		</layout>
+	</appender>
+
+	<!-- sql -->
+	<logger name="java.sql.Connection" level="debug" />
+	<logger name="java.sql.ResultSet" level="debug" />
+	<logger name="java.sql.Statement" level="debug" />
+	<logger name="java.sql.PrepareStatement" level="debug" />
+	<logger name="org.apache.ibatis" level="debug" />
+	<!-- microvibe -->
+	<logger name="io.github.microvibe" level="info" />
+	<!-- root -->
+	<root level="error">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="appFile" />
+		<appender-ref ref="debugFile" />
+		<appender-ref ref="errorFile" />
+	</root>
+</configuration>
