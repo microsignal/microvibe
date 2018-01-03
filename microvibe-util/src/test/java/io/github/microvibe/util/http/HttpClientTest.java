@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.github.microvibe.util.io.IOUtil;
+import lombok.Cleanup;
 
 public class HttpClientTest {
 
@@ -36,10 +37,13 @@ public class HttpClientTest {
 
 	public static String get(String uri, String charset, Map<String, String> params, Header[] headers)
 			throws IOException {
+		@Cleanup
 		BufferedReader br = null;
+		@Cleanup
 		BufferedWriter bw = null;
+		@Cleanup
 		CloseableHttpClient client = null;
-		//client = HttpClients.createDefault();
+		// client = HttpClients.createDefault();
 		try {
 			StringBuilder sb = new StringBuilder();
 			sb.append(uri);
