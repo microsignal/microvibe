@@ -19,6 +19,7 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.config.ConnectionConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -112,7 +113,8 @@ public class HttpClientTest {
 		Header[] headers = new Header[] {
 				new BasicHeader("test", "test")
 		};
-		String rs = get("http://localhost:8080/test", "utf-8", param, headers);
+//		String rs = get("http://localhost:8080/test", "utf-8", param, headers);
+		String rs = get("https://www.baidu.com/", "utf-8", param, headers);
 		System.out.println(rs);
 	}
 }

@@ -11,11 +11,11 @@
 	 -->
 	<change>
 		<charset>utf-8</charset>
-		<copyForcedly>true</copyForcedly>
+		<copyForcedly>false</copyForcedly>
 		<fileExtensions>.xml .java .properties</fileExtensions>
 		<dir src="../microvibe-util/src/main/java"
-			target="../microvibe-util/src/main/java" />
-		<package name="org.microvibe" mapping="io.githut.microvibe" />
+			target="../microvibe-dbv/src/main/java" />
+		<package name="io.github.microvibe.dbv" mapping="io.github.microvibe.dbv" />
 	</change>
 
 </changes>

@@ -11,11 +11,17 @@
 	<groupId>io.github.microvibe</groupId>
 	<artifactId>submodule</artifactId>
 	<packaging>jar</packaging>
+	<name>microvibe</name>
+	<url>https://microvibe.github.io</url>
+	<description>microvibe</description>
+	<organization>
+		<name>https://microvibe.github.io</name>
+		<url>https://microvibe.github.io</url>
+	</organization>
 
 	<properties>
 		<maven.test.skip>false</maven.test.skip>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<springboot.version>1.5.6.RELEASE</springboot.version>
 	</properties>
 
 	<build>
@@ -29,13 +35,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${springboot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
 				<groupId>io.github.microvibe.dependencies</groupId>
 				<artifactId>microvibe-dependencies</artifactId>
 				<version>${project.version}</version>
@@ -45,11 +44,20 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
+		
+		
+
+		<!-- =================================================================== -->
+		<!-- Begin: scope:test -->
+		<!-- =================================================================== -->
 		<dependency>
 			<groupId>io.github.microvibe.dependencies</groupId>
 			<artifactId>microvibe-dependencies-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- =================================================================== -->
+		<!-- End: scope:test -->
+		<!-- =================================================================== -->
 	</dependencies>
 
 	<profiles>

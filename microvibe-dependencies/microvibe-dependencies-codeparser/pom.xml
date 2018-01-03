@@ -20,12 +20,6 @@
 		<dependency>
 			<groupId>org.ow2.asm</groupId>
 			<artifactId>asm-all</artifactId>
-			<version>5.2</version>
-		</dependency>
-		<dependency>
-			<groupId>asm</groupId>
-			<artifactId>asm-all</artifactId>
-			<version>3.3.1</version>
 		</dependency>
 		<!-- =================================================================== -->
 		<!-- End: Bytecode Libraries -->
@@ -37,24 +31,10 @@
 		<dependency>
 			<groupId>org.antlr</groupId>
 			<artifactId>antlr4</artifactId>
-			<version>4.5.3</version>
 		</dependency>
-		<dependency>
-			<groupId>antlr</groupId>
-			<artifactId>antlr</artifactId>
-			<version>2.7.7</version>
-		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib-nodep</artifactId>
-			<version>3.2.5</version>
-		</dependency>
-		 -->
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
-			<version>3.2.5</version>
 		</dependency>
 		<!-- =================================================================== -->
 		<!-- End: Parser Generators -->
@@ -66,12 +46,10 @@
 		<dependency>
 			<groupId>aopalliance</groupId>
 			<artifactId>aopalliance</artifactId>
-			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
-			<version>1.8.13</version>
 		</dependency>
 		<!-- =================================================================== -->
 		<!-- End: Aspect Oriented -->

@@ -11,6 +11,13 @@
 	</parent>
 	<artifactId>submodule</artifactId>
 	<packaging>jar</packaging>
+	<name>microvibe</name>
+	<url>https://microvibe.github.io</url>
+	<description>microvibe</description>
+	<organization>
+		<name>https://microvibe.github.io</name>
+		<url>https://microvibe.github.io</url>
+	</organization>
 
 	<properties>
 		<maven.test.skip>false</maven.test.skip>

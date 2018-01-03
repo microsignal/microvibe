@@ -18,8 +18,12 @@
 
 	<modules>
 		<module>microvibe-dependencies</module>
-		<module>microvibe-util</module>
 		<module>microvibe-toolkit</module>
+		<module>microvibe-util</module>
+		<module>microvibe-dbv</module>
+		<module>microvibe-codegen</module>
+		<module>microvibe-castor</module>
+		<module>microvibe-commons</module>
 	</modules>
 
 	<!-- =====[repositories]===== -->
@@ -500,6 +504,8 @@
 						<stripVersion>false</stripVersion>
 						<!-- [表示是否建立依赖包的maven风格的目录结构] -->
 						<useRepositoryLayout>false</useRepositoryLayout>
+						<prependGroupId>true</prependGroupId>
+						<includeScope>runtime</includeScope>
 					</configuration>
 					<!-- 
 					<executions>
@@ -968,6 +974,33 @@
 				<groupId>org.codehaus.groovy</groupId>
 				<artifactId>groovy-all</artifactId>
 				<version>2.4.13</version>
+			</dependency>
+			
+			<!-- =====[submodules]===== -->
+			<dependency>
+				<groupId>io.github.microvibe</groupId>
+				<artifactId>microvibe-toolkit</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.microvibe</groupId>
+				<artifactId>microvibe-util</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.microvibe</groupId>
+				<artifactId>microvibe-dbv</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.microvibe</groupId>
+				<artifactId>microvibe-codegen</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.microvibe</groupId>
+				<artifactId>microvibe-commons</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 			
 			<!-- =====[mybatis]===== -->

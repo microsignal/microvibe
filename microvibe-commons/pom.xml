@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>io.github.microvibe</groupId>
+		<artifactId>microvibe</artifactId>
+		<version>1.0.1</version>
+	</parent>
+	<groupId>io.github.microvibe</groupId>
+	<artifactId>microvibe-commons</artifactId>
+	<packaging>jar</packaging>
+	<name>microvibe</name>
+	<url>https://microvibe.github.io</url>
+	<description>microvibe</description>
+	<organization>
+		<name>https://microvibe.github.io</name>
+		<url>https://microvibe.github.io</url>
+	</organization>
+
+	<properties>
+		<maven.test.skip>false</maven.test.skip>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<pluginManagement>
+			<plugins>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.github.microvibe.dependencies</groupId>
+				<artifactId>microvibe-dependencies</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-xml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-json</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-jci</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-template</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jodd</groupId>
+			<artifactId>jodd-mail</artifactId>
+		</dependency>
+		
+		<!-- [scope:test] -->
+		<dependency>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<maven.test.skip>true</maven.test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>sut</id>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+			</properties>
+		</profile>
+	</profiles>
+</project>
