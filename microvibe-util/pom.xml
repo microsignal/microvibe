@@ -8,14 +8,18 @@
 		<artifactId>microvibe</artifactId>
 		<version>1.0.1</version>
 	</parent>
-	<groupId>io.github.microvibe</groupId>
 	<artifactId>microvibe-util</artifactId>
 	<packaging>jar</packaging>
-
+	<name>microvibe</name>
+	<url>https://microvibe.github.io</url>
+	<description>microvibe</description>
+	<organization>
+		<name>https://microvibe.github.io</name>
+		<url>https://microvibe.github.io</url>
+	</organization>
 	<properties>
 		<maven.test.skip>false</maven.test.skip>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<springboot.version>1.5.6.RELEASE</springboot.version>
 	</properties>
 
 	<build>
@@ -29,13 +33,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${springboot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
 				<groupId>io.github.microvibe.dependencies</groupId>
 				<artifactId>microvibe-dependencies</artifactId>
 				<version>${project.version}</version>
@@ -46,19 +43,42 @@
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>io.github.microvibe.dependencies</groupId>
-			<artifactId>microvibe-dependencies-test</artifactId>
-			<scope>test</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.github.microvibe.dependencies</groupId>
 			<artifactId>microvibe-dependencies-commons</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
 		<dependency>
-			<groupId>org.dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>2.1.0</version>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-xml</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-json</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-jci</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-template</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.microvibe.dependencies</groupId>
+			<artifactId>microvibe-dependencies-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jodd</groupId>
+			<artifactId>jodd-mail</artifactId>
+			<version>3.8.6</version>
 		</dependency>
 	</dependencies>
 

@@ -16,32 +16,46 @@
 	<properties>
 	</properties>
 
-	<modules>
-		<module>microvibe-dependencies-barcode</module>
-		<module>microvibe-dependencies-build</module>
-		<module>microvibe-dependencies-codeparser</module>
-		<module>microvibe-dependencies-commons</module>
-		<module>microvibe-dependencies-cxf</module>
-		<module>microvibe-dependencies-javaee</module>
-		<module>microvibe-dependencies-jci</module>
-		<module>microvibe-dependencies-jetty</module>
-		<module>microvibe-dependencies-job</module>
-		<module>microvibe-dependencies-json</module>
-		<module>microvibe-dependencies-log</module>
-		<module>microvibe-dependencies-lucene</module>
-		<module>microvibe-dependencies-message</module>
-		<module>microvibe-dependencies-orm</module>
-		<module>microvibe-dependencies-poi</module>
-		<module>microvibe-dependencies-redisson</module>
-		<module>microvibe-dependencies-solr</module>
-		<module>microvibe-dependencies-solrj</module>
-		<module>microvibe-dependencies-template</module>
-		<module>microvibe-dependencies-test</module>
-		<module>microvibe-dependencies-tika</module>
-		<module>microvibe-dependencies-xml</module>
-	</modules>
+	<profiles>
+		<profile>
+			<id>modules</id>
+			<modules>
+				<module>microvibe-dependencies-barcode</module>
+				<module>microvibe-dependencies-build</module>
+				<module>microvibe-dependencies-codeparser</module>
+				<module>microvibe-dependencies-commons</module>
+				<module>microvibe-dependencies-cxf</module>
+				<module>microvibe-dependencies-javaee</module>
+				<module>microvibe-dependencies-jci</module>
+				<module>microvibe-dependencies-jetty</module>
+				<module>microvibe-dependencies-job</module>
+				<module>microvibe-dependencies-json</module>
+				<module>microvibe-dependencies-log</module>
+				<module>microvibe-dependencies-lucene</module>
+				<module>microvibe-dependencies-message</module>
+				<module>microvibe-dependencies-orm</module>
+				<module>microvibe-dependencies-poi</module>
+				<module>microvibe-dependencies-redisson</module>
+				<module>microvibe-dependencies-solr</module>
+				<module>microvibe-dependencies-solrj</module>
+				<module>microvibe-dependencies-template</module>
+				<module>microvibe-dependencies-test</module>
+				<module>microvibe-dependencies-tika</module>
+				<module>microvibe-dependencies-xml</module>
+			</modules>
+		</profile>
+	</profiles>
 	<dependencyManagement>
 		<dependencies>
+			<!-- =================================================================== -->
+			<!-- Begin: SubModules -->
+			<!-- =================================================================== -->
+			<dependency>
+				<groupId>io.github.microvibe.dependencies</groupId>
+				<artifactId>microvibe-dependencies-test</artifactId>
+				<version>1.0.1</version>
+				<scope>test</scope>
+			</dependency>
 			<dependency>
 				<groupId>io.github.microvibe.dependencies</groupId>
 				<artifactId>microvibe-dependencies-commons</artifactId>
@@ -69,10 +83,28 @@
 			</dependency>
 			<dependency>
 				<groupId>io.github.microvibe.dependencies</groupId>
-				<artifactId>microvibe-dependencies-test</artifactId>
+				<artifactId>microvibe-dependencies-xml</artifactId>
 				<version>1.0.1</version>
-				<scope>test</scope>
 			</dependency>
+			<dependency>
+				<groupId>io.github.microvibe.dependencies</groupId>
+				<artifactId>microvibe-dependencies-json</artifactId>
+				<version>1.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.microvibe.dependencies</groupId>
+				<artifactId>microvibe-dependencies-jci</artifactId>
+				<version>1.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>io.github.microvibe.dependencies</groupId>
+				<artifactId>microvibe-dependencies-template</artifactId>
+				<version>1.0.1</version>
+			</dependency>
+			<!-- =================================================================== -->
+			<!-- End: SubModules -->
+			<!-- =================================================================== -->
+			
 		</dependencies>
 	</dependencyManagement>
 
