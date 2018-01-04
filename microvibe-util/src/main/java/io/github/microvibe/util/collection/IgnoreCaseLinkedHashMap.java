@@ -23,7 +23,7 @@ public class IgnoreCaseLinkedHashMap<K, V> implements Map<K, V> {
 
 	@SuppressWarnings("unchecked")
 	static <T> T toUpperCase(T key) {
-		if (key != null && key.getClass() == String.class) {
+		if (key.getClass() == String.class) {
 			key = (T) ((String) key).toUpperCase();
 		}
 		return key;

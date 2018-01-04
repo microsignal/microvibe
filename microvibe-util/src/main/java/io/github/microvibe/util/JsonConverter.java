@@ -2,13 +2,15 @@ package io.github.microvibe.util;
 
 import java.util.List;
 
-import io.github.microvibe.util.err.JsonException;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+
+import io.github.microvibe.util.err.JsonException;
 
 public class JsonConverter {
 
@@ -19,6 +21,7 @@ public class JsonConverter {
 	private JsonConverter() {
 		mapper = new ObjectMapper();
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		mapper.setSerializationInclusion(Include.NON_NULL);  
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
@@ -31,7 +34,7 @@ public class JsonConverter {
 		return jsonConverter;
 	}
 
-	public String object2Json(Object object) {
+	public String toJson(Object object) {
 		try {
 			return mapper.writeValueAsString(object);
 		} catch (Exception e) {
@@ -39,7 +42,7 @@ public class JsonConverter {
 		}
 	}
 
-	public JsonNode json2JsonNode(String json) {
+	public JsonNode toJsonNode(String json) {
 		try {
 			return mapper.readValue(json, JsonNode.class);
 		} catch (Exception e) {
@@ -47,7 +50,7 @@ public class JsonConverter {
 		}
 	}
 
-	public <T> T json2Object(Class<T> type, String json) {
+	public <T> T toJavaObject(Class<T> type, String json) {
 		try {
 			return mapper.readValue(json, type);
 		} catch (Exception e) {
@@ -55,7 +58,7 @@ public class JsonConverter {
 		}
 	}
 
-	public <T> T json2Object(Class<T> type, JsonNode json) {
+	public <T> T toJavaObject(Class<T> type, JsonNode json) {
 		try {
 			return mapper.readValue(json.toString(), type);
 		} catch (Exception e) {
@@ -64,7 +67,7 @@ public class JsonConverter {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> List<T> json2List(Class<T> type, String json) {
+	public <T> List<T> toList(Class<T> type, String json) {
 		try {
 			return (List<T>) mapper.readValue(json.toString(), typeFactory.constructParametricType(
 					java.util.ArrayList.class, new Class[] { type }));
@@ -74,7 +77,7 @@ public class JsonConverter {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> List<T> json2List(Class<T> type, JsonNode json) {
+	public <T> List<T> toList(Class<T> type, JsonNode json) {
 		try {
 			return (List<T>) mapper.readValue(json.toString(), typeFactory.constructParametricType(
 					java.util.ArrayList.class, new Class[] { type }));

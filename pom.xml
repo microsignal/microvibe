@@ -464,6 +464,7 @@
 							</manifest>
 						</archive>
 						<excludes>
+							<exclude>logback.xml</exclude>
 							<exclude>rebel.xml</exclude>
 							<exclude>.keep*</exclude>
 						</excludes>
