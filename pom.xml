@@ -104,6 +104,7 @@
 		<tomcat.maven.version>2.2</tomcat.maven.version>
 		<jrebel.maven.version>1.1.6</jrebel.maven.version>
 		<springboot.version>1.5.6.RELEASE</springboot.version>
+		<springcloud.version>Dalston.SR1</springcloud.version>
 	</properties>
 
 	<build>
@@ -128,7 +129,7 @@
 				<excludes>
 					<exclude>**/*.groovy</exclude>
 					<exclude>README.md</exclude>
-					<exclude>.keep*</exclude>
+					<exclude>.gitkeep*</exclude>
 				</excludes>
 			</resource>
 			<resource>
@@ -138,7 +139,7 @@
 				</includes>
 				<excludes>
 					<exclude>README.md</exclude>
-					<exclude>.keep*</exclude>
+					<exclude>.gitkeep*</exclude>
 					<exclude>**/*.properties</exclude>
 					<exclude>**/*.xml</exclude>
 				</excludes>
@@ -163,7 +164,7 @@
 				<excludes>
 					<exclude>**/*.java</exclude>
 					<exclude>README.md</exclude>
-					<exclude>.keep*</exclude>
+					<exclude>.gitkeep*</exclude>
 				</excludes>
 			</testResource>
 			<testResource>
@@ -174,7 +175,7 @@
 				<excludes>
 					<exclude>**/*.groovy</exclude>
 					<exclude>README.md</exclude>
-					<exclude>.keep*</exclude>
+					<exclude>.gitkeep*</exclude>
 				</excludes>
 			</testResource>
 			<testResource>
@@ -184,7 +185,7 @@
 				</includes>
 				<excludes>
 					<exclude>README.md</exclude>
-					<exclude>.keep*</exclude>
+					<exclude>.gitkeep*</exclude>
 					<exclude>**/*.properties</exclude>
 					<exclude>**/*.xml</exclude>
 				</excludes>
@@ -338,7 +339,7 @@
 							<configuration>
 								<excludes>
 									<exclude>rebel.xml</exclude>
-									<exclude>.keep*</exclude>
+									<exclude>.gitkeep*</exclude>
 								</excludes>
 							</configuration>
 						</execution>
@@ -352,7 +353,7 @@
 							<configuration>
 								<excludes>
 									<exclude>rebel.xml</exclude>
-									<exclude>.keep*</exclude>
+									<exclude>.gitkeep*</exclude>
 								</excludes>
 							</configuration>
 						</execution>
@@ -466,7 +467,7 @@
 						<excludes>
 							<exclude>logback.xml</exclude>
 							<exclude>rebel.xml</exclude>
-							<exclude>.keep*</exclude>
+							<exclude>.gitkeep*</exclude>
 						</excludes>
 					</configuration>
 					<executions>
@@ -505,7 +506,7 @@
 						<stripVersion>false</stripVersion>
 						<!-- [表示是否建立依赖包的maven风格的目录结构] -->
 						<useRepositoryLayout>false</useRepositoryLayout>
-						<prependGroupId>true</prependGroupId>
+						<!-- <prependGroupId>true</prependGroupId> -->
 						<includeScope>runtime</includeScope>
 					</configuration>
 					<!-- 
@@ -723,6 +724,19 @@
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
 					<version>${springboot.version}</version>
+					<configuration>
+						<fork>true</fork>
+						<classifier>boot</classifier>
+						<mainClass>${package.mainClass}</mainClass>
+					</configuration>
+					<!-- <executions>
+						<execution>
+							<id>springboot-package</id>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions> -->
 				</plugin>
 
 				<!-- =====[site]===== -->
@@ -1016,6 +1030,14 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${springboot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- =====[springcloud]===== -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${springcloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

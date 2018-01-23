@@ -14,5 +14,5 @@ if "%APP_HOME%" == "" (
 echo "APP_HOME: %APP_HOME%"
 
 %APP_HOME%\bin\change.bat %*
-
+:: ping localhost -n 5 >nul
 :: pause
