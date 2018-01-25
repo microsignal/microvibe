@@ -98,6 +98,7 @@
 		<java.version>1.8</java.version>
 		<package.dependencyDirectory>dependency</package.dependencyDirectory>
 		<package.mainClass></package.mainClass>
+		<includeScope>runtime</includeScope>
 		<support.basedir>${basedir}/src/support</support.basedir>
 		<site.basedir>${basedir}</site.basedir>
 		<jetty.version>9.2.2.v20140723</jetty.version>
@@ -507,7 +508,7 @@
 						<!-- [表示是否建立依赖包的maven风格的目录结构] -->
 						<useRepositoryLayout>false</useRepositoryLayout>
 						<!-- <prependGroupId>true</prependGroupId> -->
-						<includeScope>runtime</includeScope>
+						<includeScope>${includeScope}</includeScope>
 					</configuration>
 					<!-- 
 					<executions>
