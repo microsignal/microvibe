@@ -3,25 +3,27 @@ package io.github.microvibe.util.matcher;
 import java.util.regex.Pattern;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-public class PathMatchers {
+@Slf4j
+public class DefaultPathMatchers {
 
 	public static final char PATH_SEPERATOR = '/';
-	public static final String PATH_UNIT = "[^/]*";
 
-	static final PathMatcher defaultPathMatcher = new DefaultPathMatcher(PATH_SEPERATOR, PATH_UNIT);
+	static final PathMatcher defaultPathMatcher = new DefaultPathMatcher(PATH_SEPERATOR);
 
 	@RequiredArgsConstructor
 	static class DefaultPathMatcher implements PathMatcher {
 
 		final char pathSeperator;
-		final String pathUnit;
 
 		@Override
 		public boolean match(String pattern, String path) {
 			pattern = toCanonicalPattern(pattern);
 			path = toCanonicalPath(path);
 			pattern = "^" + pattern + "$";
+			log.debug("pattern: {}", pattern);
+			log.debug("path: {}", path);
 			boolean matches = Pattern.compile(pattern).matcher(path).find();
 			return matches;
 		}
@@ -31,14 +33,44 @@ public class PathMatchers {
 			pattern = toCanonicalPattern(pattern);
 			path = toCanonicalPath(path);
 			pattern = "^" + pattern;
+			log.debug("pattern: {}", pattern);
+			log.debug("path: {}", path);
 			boolean matches = Pattern.compile(pattern).matcher(path).find();
 			return matches;
 		}
 
 		String toCanonicalPattern(String pattern) {
-			pattern = pattern.replaceAll("(" + Pattern.quote(String.valueOf(pathSeperator)) + ")+$", "") + pathSeperator;// 结尾分隔符标准化
-			pattern = pattern.replace(pathSeperator + "**", "(" + pathSeperator + pathUnit + ")*");
-			pattern = pattern.replace("*", pathUnit);
+			pattern = pattern.replaceAll("(" + Pattern.quote(String.valueOf(pathSeperator)) + ")+$", "")
+					+ pathSeperator;// 结尾分隔符标准化
+			String pathLetter = "[^\\" + pathSeperator + "]*";
+			String pathUnit = "[^\\" + pathSeperator + "]*";
+			String pathUnits = "(" + pathSeperator + pathUnit + ")*";
+			char[] chs = pattern.toCharArray();
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < chs.length; i++) {
+				if (chs[i] == '*') {
+					if (i == chs.length - 1 || chs[i + 1] != '*') {
+						sb.append(pathUnit);
+					} else {
+						if (i == 0) {
+							sb.append(pathUnits);
+						} else if (chs[i - 1] == pathSeperator) {
+							sb.deleteCharAt(sb.length() - 1);
+							sb.append(pathUnits);
+						} else {
+							sb.append(pathUnit);
+						}
+						while (chs[i + 1] == '*') {
+							i++;
+						}
+					}
+				} else if (chs[i] == '?') {
+					sb.append(pathLetter);
+				} else {
+					sb.append(chs[i]);
+				}
+			}
+			pattern = sb.toString();
 			return pattern;
 		}
 
@@ -47,13 +79,8 @@ public class PathMatchers {
 		}
 	}
 
-	public static PathMatcher buildPathMatcher(char pathSeperator, String pathUnit) {
-		return new DefaultPathMatcher(pathSeperator, pathUnit);
-	}
-
 	public static PathMatcher buildPathMatcher(char pathSeperator) {
-		String pathUnit = "[^\\" + pathSeperator + "]*";
-		return new DefaultPathMatcher(pathSeperator, pathUnit);
+		return new DefaultPathMatcher(pathSeperator);
 	}
 
 	public static PathMatcher getDefaultPathMatcher() {

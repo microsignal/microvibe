@@ -55,9 +55,10 @@ public class ExcelTplToolkit {
 				copy(idxSheet, idxRow - 1, 0, idxSheet, idxRow, 0, 'J' - 'A');
 			}
 
-			String sheetName = StringUtil.coalesce(table.getRemarks(), table.getTableName());
+			// String sheetName = StringUtil.coalesce(table.getRemarks(), table.getTableName());
+			String sheetName = StringUtil.coalesce(table.getTableName());
 			idxSheet.getRow(idxRow).getCell(2).setCellValue(catalog);
-			idxSheet.getRow(idxRow).getCell(3).setCellValue(sheetName);
+			idxSheet.getRow(idxRow).getCell(3).setCellValue(table.getRemarks());
 			idxSheet.getRow(idxRow).getCell(4).setCellValue(table.getTableName());
 			idxSheet.getRow(idxRow).getCell(6).setCellValue(table.getRemarks());
 
@@ -73,10 +74,12 @@ public class ExcelTplToolkit {
 			sheet.getRow(0).getCell(1).setCellValue(sheetName);
 			sheet.getRow(2).getCell(0).setCellValue(table.getRemarks());
 
-			//columns
+			// columns
 			int iRow = 7;
+			int colNum = 0;
 			for (Column col : table.getColumnList()) {
 				copy(tplSheet, 7, 0, sheet, iRow, 0, 'K' - 'A');
+				sheet.getRow(iRow).getCell(0).setCellValue(++colNum);
 				sheet.getRow(iRow).getCell(1).setCellValue(col.getColumnName());
 				sheet.getRow(iRow).getCell(2).setCellValue(StringUtil.coalesce(col.getRemarks(), col.getColumnName()));
 				sheet.getRow(iRow).getCell(3).setCellValue(col.getColumnType());
@@ -99,14 +102,17 @@ public class ExcelTplToolkit {
 				iRow++;
 			}
 
-			copy(tplSheet, 7, 0, sheet, iRow, 0, 'K' - 'A');//empty col line
+			copy(tplSheet, 7, 0, sheet, iRow, 0, 'K' - 'A');// empty col line
+			sheet.getRow(iRow).getCell(0).setCellValue(++colNum);
 			iRow++;
-			copy(tplSheet, 12, 0, sheet, iRow, 0, 'K' - 'A');//end col
+			copy(tplSheet, 12, 0, sheet, iRow, 0, 'K' - 'A');// end col
 
 			iRow++;
 			iRow++;
-			//index
+			// index
 			copy(tplSheet, 15, 0, sheet, ++iRow, 0, 'K' - 'A');
+			
+			int idxNum = 0;
 			idxLoop: for (Index idx : table.getIndexList()) {
 				for (PrimaryKey pk : table.getPrimaryKeyList()) {
 					if (pk.getPkName().equals(idx.getIndexName())) {
@@ -115,6 +121,7 @@ public class ExcelTplToolkit {
 				}
 
 				copy(tplSheet, 16, 0, sheet, ++iRow, 0, 'K' - 'A');
+				sheet.getRow(iRow).getCell(0).setCellValue(++idxNum);
 				sheet.getRow(iRow).getCell(1).setCellValue(idx.getIndexName());
 				String[] columnNames = idx.getColumnNames().split(",", 6);
 				int iCol = 2;
@@ -143,7 +150,8 @@ public class ExcelTplToolkit {
 	private static void copy(XSSFSheet tplSheet, int tplRow, int tplCol, XSSFSheet sheet, int row, int col, int cols) {
 		XSSFRow tplSheetRow = tplSheet.getRow(tplRow);
 		XSSFRow sheetRow = sheet.createRow(row);
-		if (tplSheetRow == null) return;
+		if (tplSheetRow == null)
+			return;
 		sheetRow.setRowStyle(tplSheetRow.getRowStyle());
 		for (int i = 0; i < cols; i++) {
 			XSSFCell tplSheetCell = tplSheetRow.getCell(tplCol + i);
@@ -152,9 +160,11 @@ public class ExcelTplToolkit {
 				continue;
 			}
 			XSSFComment cellComment = tplSheetCell.getCellComment();
-			if (cellComment != null) sheetCell.setCellComment(cellComment);
+			if (cellComment != null)
+				sheetCell.setCellComment(cellComment);
 			XSSFCellStyle cellStyle = tplSheetCell.getCellStyle();
-			if (cellStyle != null) sheetCell.setCellStyle(cellStyle);
+			if (cellStyle != null)
+				sheetCell.setCellStyle(cellStyle);
 			int cellType = tplSheetCell.getCellType();
 			sheetCell.setCellType(cellType);
 			switch (cellType) {
@@ -172,7 +182,8 @@ public class ExcelTplToolkit {
 				break;
 			case Cell.CELL_TYPE_FORMULA:
 				String cellFormula = tplSheetCell.getCellFormula();
-				if (cellFormula != null) sheetCell.setCellFormula(cellFormula);
+				if (cellFormula != null)
+					sheetCell.setCellFormula(cellFormula);
 				break;
 			case Cell.CELL_TYPE_BLANK:
 				break;
@@ -180,7 +191,8 @@ public class ExcelTplToolkit {
 				break;
 			}
 			XSSFHyperlink hyperlink = tplSheetCell.getHyperlink();
-			if (hyperlink != null) sheetCell.setHyperlink(hyperlink);
+			if (hyperlink != null)
+				sheetCell.setHyperlink(hyperlink);
 		}
 	}
 }
