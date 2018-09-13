@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>io.github.microvibe.example</groupId>
 		<artifactId>microvibe-example</artifactId>
-		<version>1.0.1</version>
+		<version>1.1.1</version>
 	</parent>
 	<artifactId>microvibe-example-springcloud</artifactId>
 	<packaging>pom</packaging>
-	
+
 	<modules>
 		<module>springcloud-eureka-server</module>
 		<module>springcloud-eureka-client</module>

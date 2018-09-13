@@ -5,11 +5,11 @@
   <parent>
 	<groupId>io.github.microvibe.example</groupId>
 	<artifactId>microvibe-example-springcloud</artifactId>
-	<version>1.0.1</version>
+	<version>1.1.1</version>
   </parent>
   <artifactId>springcloud-eureka-consumer</artifactId>
   <name>springcloud-eureka-consumer</name>
-  
+
 	<properties>
 		<maven.test.skip>false</maven.test.skip>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,7 +17,7 @@
 
 	<build>
 	</build>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

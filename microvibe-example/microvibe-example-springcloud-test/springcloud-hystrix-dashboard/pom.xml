@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>io.github.microvibe.example</groupId>
 		<artifactId>microvibe-example-springcloud</artifactId>
-		<version>1.0.1</version>
+		<version>1.1.1</version>
 	</parent>
 	<artifactId>springcloud-hystrix-dashboard</artifactId>
 	<name>springcloud-hystrix-dashboard</name>
@@ -17,7 +17,7 @@
 
 	<build>
 	</build>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>io.github.microvibe.dependencies</groupId>
 		<artifactId>microvibe-dependencies</artifactId>
-		<version>1.0.1</version>
+		<version>1.1.1</version>
 	</parent>
 	<artifactId>microvibe-dependencies-jetty</artifactId>
 	<packaging>jar</packaging>
@@ -13,7 +13,7 @@
 	<properties>
 		<version.jetty>	9.2.23.v20171218</version.jetty>
 	</properties>
-	
+
 	<dependencies>
 		<!-- =================================================================== -->
 		<!-- Begin: Jetty Server -->

@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>io.github.microvibe</groupId>
 		<artifactId>microvibe</artifactId>
-		<version>1.0.1</version>
+		<version>1.1.1</version>
 	</parent>
 	<groupId>io.github.microvibe</groupId>
 	<artifactId>microvibe-codegen</artifactId>
@@ -52,8 +52,8 @@
 			<groupId>io.github.microvibe</groupId>
 			<artifactId>microvibe-dbv</artifactId>
 		</dependency>
-		
-		
+
+
 		<!-- [scope:test] -->
 		<dependency>
 			<groupId>io.github.microvibe.dependencies</groupId>
